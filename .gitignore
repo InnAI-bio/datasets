@@ -1,0 +1,7 @@
+# SQLite databases (generated at runtime)
+*.db
+
+# Python
+__pycache__/
+*.pyc
+.env
