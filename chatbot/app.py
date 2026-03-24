@@ -60,6 +60,56 @@ CREATE TABLE inventory (
     warehouse       TEXT NOT NULL,
     last_updated    TEXT NOT NULL    -- YYYY-MM-DD
 );
+
+-- ─── Seed Data ──────────────────────────────────────────────────────────────
+
+INSERT INTO products (name, category, weight_kg, price_usd, sku) VALUES
+    ('All-Purpose Flour',       'Wheat',       2.0,  3.49, 'APF-2KG'),
+    ('Bread Flour',             'Wheat',       5.0,  7.99, 'BRD-5KG'),
+    ('Whole Wheat Flour',       'Wheat',       2.0,  4.29, 'WWF-2KG'),
+    ('Cake Flour',              'Specialty',   1.0,  3.99, 'CAK-1KG'),
+    ('Rye Flour',               'Specialty',   2.0,  5.49, 'RYE-2KG'),
+    ('Almond Flour',            'Gluten-Free', 0.5,  8.99, 'ALM-500G'),
+    ('Rice Flour',              'Gluten-Free', 1.0,  4.49, 'RIC-1KG'),
+    ('Semolina',                'Specialty',   2.0,  4.99, 'SEM-2KG'),
+    ('Spelt Flour',             'Specialty',   1.0,  6.29, 'SPL-1KG'),
+    ('Oat Flour',               'Gluten-Free', 1.0,  5.79, 'OAT-1KG');
+
+INSERT INTO suppliers (name, contact_name, email, phone, country, lead_time_days) VALUES
+    ('GrainSource Co.',     'Jane Harlow',   'jane@grainsource.com',  '+1-800-555-0101', 'USA',       5),
+    ('Nordic Mills',        'Erik Strand',   'erik@nordicmills.se',   '+46-8-555-0202',  'Sweden',   14),
+    ('Southern Grain Ltd.', 'Maria Santos',  'maria@sgrain.com.br',   '+55-11-555-0303', 'Brazil',   21),
+    ('PureMill Organics',   'Lena Fischer',  'lena@puremill.de',      '+49-30-555-0404', 'Germany',  10),
+    ('Prairie Gold Farms',  'Tom Whitfield', 'tom@prairiegold.ca',    '+1-403-555-0505', 'Canada',    7);
+
+INSERT INTO orders (customer_name, customer_email, product_id, quantity, unit_price, order_date, status) VALUES
+    ('Alice Johnson',  'alice@example.com',  1, 20, 3.49, '2025-10-05', 'delivered'),
+    ('Bob Martinez',   'bob@example.com',    2, 10, 7.99, '2025-10-12', 'delivered'),
+    ('Alice Johnson',  'alice@example.com',  3, 15, 4.29, '2025-11-01', 'shipped'),
+    ('Carol Lee',      'carol@example.com',  6,  5, 8.99, '2025-11-08', 'delivered'),
+    ('David Kim',      'david@example.com',  4, 30, 3.99, '2025-11-14', 'pending'),
+    ('Bob Martinez',   'bob@example.com',    5, 12, 5.49, '2025-11-20', 'pending'),
+    ('Carol Lee',      'carol@example.com',  1, 25, 3.49, '2025-12-02', 'shipped'),
+    ('Eve Turner',     'eve@example.com',    7, 18, 4.49, '2025-12-10', 'cancelled'),
+    ('David Kim',      'david@example.com',  8, 10, 4.99, '2025-12-18', 'pending'),
+    ('Alice Johnson',  'alice@example.com',  2,  8, 7.99, '2026-01-05', 'pending'),
+    ('Frank Nguyen',   'frank@example.com',  6,  3, 8.99, '2026-01-15', 'shipped'),
+    ('Eve Turner',     'eve@example.com',    3, 20, 4.29, '2026-02-01', 'cancelled'),
+    ('Grace Patel',    'grace@example.com',  9, 14, 6.29, '2026-02-14', 'delivered'),
+    ('Frank Nguyen',   'frank@example.com', 10,  6, 5.79, '2026-02-28', 'shipped'),
+    ('Grace Patel',    'grace@example.com',  1, 50, 3.49, '2026-03-10', 'pending');
+
+INSERT INTO inventory (product_id, supplier_id, quantity_kg, warehouse, last_updated) VALUES
+    (1,  1, 4800.0, 'North Warehouse', '2026-03-01'),
+    (2,  1, 2200.0, 'North Warehouse', '2026-03-01'),
+    (3,  4, 1350.0, 'East Warehouse',  '2026-03-05'),
+    (4,  2,  620.0, 'East Warehouse',  '2026-03-05'),
+    (5,  2,   85.0, 'East Warehouse',  '2026-03-10'),
+    (6,  4,   42.0, 'Cold Storage',    '2026-03-10'),
+    (7,  3,  310.0, 'South Warehouse', '2026-03-12'),
+    (8,  3,  780.0, 'South Warehouse', '2026-03-12'),
+    (9,  5,  430.0, 'North Warehouse', '2026-03-15'),
+    (10, 5,   95.0, 'West Warehouse',  '2026-03-15');
 """
 
 SQL_SYSTEM_PROMPT = f"""You are an expert SQL assistant for a flour company database.
