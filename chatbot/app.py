@@ -10,7 +10,6 @@ import anthropic
 
 BASE_DIR    = os.path.dirname(os.path.abspath(__file__))
 DB_PATH     = os.path.join(BASE_DIR, "flour_company.db")
-SCHEMA_PATH = os.path.join(BASE_DIR, "schema.sql")
 MODEL       = "claude-haiku-4-5"
 MAX_HISTORY = 10  # conversation turns to keep per session
 
@@ -178,8 +177,7 @@ def build_format_prompt(history: list, message: str, sql_used: str, result_text:
 def init_db():
     if not os.path.exists(DB_PATH):
         conn = sqlite3.connect(DB_PATH)
-        with open(SCHEMA_PATH) as f:
-            conn.executescript(f.read())
+        conn.executescript(DB_SCHEMA)
         conn.commit()
         conn.close()
 
